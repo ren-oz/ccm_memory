@@ -1,9 +1,7 @@
-from hrrlib import HRR, rand
-from base import AbstractMatrixMemory, Activation, Vector
+from base import AbstractMatrixMemory, Activation, Vector, MemoryPair
+from abstract import AbstractMemory
 import numpy as np
 from utils import softmax
-from typing import Union
-
 
 class AttentionMemory(AbstractMatrixMemory):
 
@@ -38,3 +36,27 @@ class MINERVA2(AbstractMatrixMemory):
 
     def apply_activation(self, activation: Activation) -> Vector:
         return (self._memory.T@activation).view(Vector)
+
+
+class ChainedMatrixMemory(AbstractMatrixMemory):
+    # Required structure for Stateful attention memory implementations
+    def __init__(self, memory_model: type, *args, **kwargs):
+        super().__init__()
+        self._memory = MemoryPair(memory_model, *args, **kwargs)
+
+    def activation(self, probe: Vector) -> Activation:
+        return self._memory[0].activation(probe)
+
+    def apply_activation(self, activation: Activation) -> Vector:
+        return self._memory[1].apply_activation(activation)
+
+    def add(self, a:Vector, b:Vector) -> None:
+        self._memory[0].add(a)
+        self._memory[1].add(b)
+
+    def delete(self, index:int) -> None:
+        self._memory[0].delete(index)
+        self._memory[1].delete(index)
+
+    def __len__(self):
+        return self._memory[0].__len__()
