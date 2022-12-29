@@ -12,4 +12,4 @@ To install, first clone (or download & unpack) this repo to a folder on your com
 
     pip install .
 
-This package requires [``numpy``](https://pypi.org/project/numpy/) and [``hrrlib``](https://github.com/ren-oz/hrrlib). These should be installed automatically using the above command. If this does not work for you, please [submit an issue]().
+This package requires [``numpy``](https://pypi.org/project/numpy/) and [``hrrlib``](https://github.com/ren-oz/hrrlib). These should be installed automatically using the above command. If this does not work for you, please [submit an issue](https://github.com/ren-oz/ccm_memory/issues).
