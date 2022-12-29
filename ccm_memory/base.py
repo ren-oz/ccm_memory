@@ -44,7 +44,7 @@ class AbstractMatrixMemory(AbstractMemory, ABC):
         
     def delete(self, index:int) -> None:
         n = self._memory.shape[0]
-        i = np.linspace(0, n, num=n, endpoint=False)
+        i = np.linspace(0, n, num=n, endpoint=False, dtype=np.int64)
         self._memory = self._memory[np.r_[i[:index], i[index+1:]]]
     
     def __str__(self):
