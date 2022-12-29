@@ -33,7 +33,7 @@ print("Output (random):", result)
 ######### Trial 2
 
 # Reset SAM state
-sam.state = sam.symbol(None)
+sam.state = sam.symbol_hrr(None)
 
 # Start with valid key (should then accept for all inputs)
 input_seq = [valid_key] + [random.choice(range(n_keys)) for _ in range(input_len-1)]
